@@ -1,0 +1,41 @@
+<?php
+
+namespace App;
+
+use App\Models\User;
+
+class SessionGuard
+{
+  protected $user;
+
+  public function login(User $user, array $credentials)
+  {
+    $verified = password_verify($credentials['password'], $user->password_hash);
+    if ($verified) {
+      // Lưu cả ID và VAI TRÒ (role) của người dùng vào session
+      $_SESSION['user_id'] = $user->id;
+      $_SESSION['role'] = $user->role;
+    }
+    return $verified;
+  }
+
+  public function user()
+  {
+    if (!$this->user && $this->isUserLoggedIn()) {
+      $this->user = (new User())->findById($_SESSION['user_id']);
+    }
+    return $this->user;
+  }
+
+  public function logout()
+  {
+    $this->user = null;
+    session_unset();
+    session_destroy();
+  }
+
+  public function isUserLoggedIn()
+  {
+    return isset($_SESSION['user_id']);
+  }
+}

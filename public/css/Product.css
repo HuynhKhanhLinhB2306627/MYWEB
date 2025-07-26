@@ -1,0 +1,109 @@
+.card-title {
+  font-size: 1rem;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+@media (max-width: 992px) {
+  .card-img-top {
+    height: 25vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 40vw;
+  }
+}
+
+.product-slider-card .card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.label-new {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  z-index: 10;
+}
+/*fomat product-detail*/
+/*CSS cho ảnh chính */
+.main-image-container {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.main-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/*CSS cho ảnh thumbnail */
+.thumbnail-images img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.thumbnail-images img.active,
+.thumbnail-images img:hover {
+    border-color: #dc3545;
+}
+
+/*CSS cho ảnh sản phẩm liên quan */
+.related-product-card .card-img-container {
+    border-bottom: 1px solid #eee;
+}
+
+.related-product-card .card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stock-status {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem;
+}
+
+.stock-status.in-stock {
+    background-color: #198754;
+}
+
+.policy-box {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+}
+
+.policy-box .policy-item i {
+    color: #dc3545;
+}

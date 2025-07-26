@@ -1,0 +1,10 @@
+
+.carousel-img {
+    height: auto !important;
+    max-height: 315px;
+    object-fit: cover;
+}
+
+.img-fluid{
+  border-radius: 5px  !important;
+}
