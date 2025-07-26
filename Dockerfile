@@ -1,14 +1,28 @@
-FROM php:8.2-cli
+# Sử dụng image PHP chính thức với Apache để phục vụ web
+FROM php:8.2-apache
 
-# Cài đặt extension nếu cần (tùy theo project, có thể bỏ dòng dưới nếu không cần DB)
-# RUN docker-php-ext-install pdo pdo_mysql
+# Cài đặt các extension PHP cần thiết
+# pdo và pdo_pgsql là bắt buộc để kết nối với database PostgreSQL
+RUN docker-php-ext-install pdo pdo_pgsql
 
-# Copy toàn bộ mã nguồn vào container
-COPY . /app
-WORKDIR /app
+# Cài đặt Composer (trình quản lý gói cho PHP)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Expose cổng Render yêu cầu
-EXPOSE 10000
+# Kích hoạt module rewrite của Apache (quan trọng cho routing)
+RUN a2enmod rewrite
 
-# Chạy PHP server tại thư mục public (thường có index.php ở đó)
-CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
+# Đặt thư mục làm việc
+WORKDIR /var/www/html
+
+# Sao chép mã nguồn của bạn vào thư mục web của container
+# Lưu ý: file .htaccess sẽ được tự động sao chép
+COPY . .
+
+# Cài đặt các thư viện từ composer.json
+RUN composer install --no-dev --optimize-autoloader
+
+# Phân quyền cho thư mục public/Images để có thể upload file
+RUN chown -R www-data:www-data public/Images
+
+# Cổng mặc định của Apache là 80
+EXPOSE 80
